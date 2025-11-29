@@ -42,3 +42,15 @@
     ┣ 📜 김준섭 - 자기소개서.pdf
     ┗ 📂 img
        ┗ 📜 김준섭.jpg
+```
+
+## 리포지토리 명명 규칙 및 최적화 (Naming Convention & Optimization)
+
+**2024.11 업데이트:** GitHub API 호출 제한(Rate Limit)을 방지하고 로딩 속도를 높이기 위해 로직이 개선되었습니다.
+
+1.  **접미사 필터링**: 리포지토리 이름이 대소문자 구분 없이 **`proj` 또는 `public`으로 끝나는 경우**에만 포트폴리오 목록으로 가져옵니다.
+    *   ✅ `ai-chatbot-proj`, `backend-server-proj`, `Portfolio-proj`
+    *   ❌ `hello-world`, `study-algorithm`
+    > **Note:** 기존 리포지토리를 포트폴리오에 띄우려면 이름을 `xxx-proj` 형태로 변경하거나, `script.js`의 필터링 조건을 수정하세요.
+
+2.  **탐색 범위 확장**: 기본 API 호출(30개) 제한을 넘어, 최근 업데이트순으로 **최대 100개**의 리포지토리를 한 번에 조회하도록 개선되었습니다(`per_page=100`). 리포지토리 개수가 많아도 누락 없이 불러올 수 있습니다.
