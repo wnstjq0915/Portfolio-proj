@@ -1,6 +1,7 @@
 /**
  * 기능 로직은 기존과 동일하게 유지하되, 
  * UI 제어(클래스 토글 등) 부분만 새로운 디자인에 맞게 최적화되었습니다.
+ * + 리포지토리 이름 필터링 (Ends with 'proj') 추가됨
  */
 
 const githubUser = "wnstjq0915"; // ★ 본인 깃허브 아이디
@@ -67,6 +68,13 @@ async function fetchProjects() {
 
         // 병렬 처리 대신 순차 처리로 API 부하 조절
         for (const repo of repos) {
+            
+            // [수정된 부분] 리포지토리 이름 필터링 로직
+            // 이름이 대소문자 상관없이 'proj'로 끝나지 않으면 건너뜁니다.
+            if (!repo.name.toLowerCase().endsWith('proj') && !repo.name.toLowerCase().endsWith('public')) {
+                continue;
+            }
+
             const contentsUrl = `https://api.github.com/repos/${repo.owner.login}/${repo.name}/contents/`;
             const contentsRes = await fetch(contentsUrl);
             const contents = contentsRes.ok ? await contentsRes.json() : [];
